@@ -1,25 +1,81 @@
 USE SummerPractice
 GO
 
-CREATE PROCEDURE return_Medal_ID @title nvarchar(50)
+CREATE PROCEDURE CreatePerson  @name nvarchar(20), @surname nvarchar(30), @date_Of_Birth date, @age int, @city nvarchar(20), @street nvarchar(20), @house_number nvarchar(5)
+AS
+INSERT INTO People
+VALUES (@name, @surname, @date_Of_Birth, @age, @city, @street, @house_number)
+
+CREATE PROCEDURE CreateMedal @title nvarchar(50), @material nvarchar(10)
+AS
+INSERT INTO Medals
+VALUES (@title, @material)
+
+CREATE PROCEDURE UpdatePerson  @id int, @name nvarchar(20), @surname nvarchar(30), @date_Of_Birth date, @age int, @city nvarchar(20), @street nvarchar(20), @house_number nvarchar(5)
+AS
+UPDATE People SET Name = @name, Surname = @surname, Date_of_birth = @date_Of_Birth, Age = @age, City = @city, Street = @street, House_number = @house_number 
+WHERE ID = @id
+
+CREATE PROCEDURE UpdateMedal @id int, @title nvarchar(50), @material nvarchar(10)
+AS
+UPDATE Medals SET Title = @title, Material = @material
+WHERE ID = @id
+
+CREATE PROCEDURE CreateReward @idP int, @idM int
+AS
+INSERT INTO Rewards
+VALUES (@IDp, @IDm)
+
+CREATE PROCEDURE RemoveReward @idP int, @idM int
+AS
+DELETE FROM Rewards WHERE Person_ID = @idP AND Medal_ID = @idM
+
+CREATE PROCEDURE RemovePerson @id int
+AS
+DELETE FROM Person WHERE ID = @id
+
+CREATE PROCEDURE RemoveMedal @id int
+AS
+IF (SELECT COUNT(Person_ID) FROM Rewards WHERE Medal_ID = @id) < 1
+BEGIN
+	DELETE FROM Medals WHERE ID = @id
+	RETURN 1
+END
+ELSE RETURN 0
+
+CREATE PROCEDURE ShowAllMedals 
+AS
+SELECT * FROM Medals
+
+CREATE PROCEDURE ShowAllPeople
+AS
+SELECT * FROM People
+
+CREATE PROCEDURE ShowAllRewards
+AS
+SELECT People.Name, People.Surname, Medals.Material, Medals.Title FROM People 
+JOIN Rewards ON People.ID = Rewards.Person_ID
+JOIN Medals ON Medals.ID = Rewards.Medal_ID
+
+CREATE PROCEDURE ReturnMedalID @title nvarchar(50)
 AS
 SELECT ID from Medals 
 WHERE @title = Title
-RETURN
 GO
 
-CREATE PROCEDURE return_Person_ID @name nvarchar(20), @surname nvarchar(30), @date_Of_Birth date
+
+CREATE PROCEDURE ReturnPersonID @name nvarchar(20), @surname nvarchar(30), @date_Of_Birth date
 AS
 SELECT ID from People 
 WHERE (@name = Name AND @surname = Surname AND @date_Of_Birth = Date_of_birth)
-RETURN
 GO
 
-CREATE PROCEDURE return_Rewarded_by_Medal @title nvarchar(50)
+/*
+CREATE PROCEDURE ReturnRewardedByMedal @title nvarchar(50)
 AS
 DECLARE
 @id AS INT
-EXEC return_Medal_ID @title
+EXEC ReturnMedalID @title
 SELECT @id = SCOPE_IDENTITY()
-RETURN
 GO
+*/
