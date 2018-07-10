@@ -14,6 +14,6 @@ namespace EpamSummerPractice.BLL.Interface
         void Update(int id, string name, string surname, string dateOfBirth,
             int age, string city, string street, string house_number);
         void Delete(int id);
-        IEnumerable<People> GetAll();
+        IEnumerable<Person> GetAll();
     }
 }

@@ -8,7 +8,7 @@ namespace Entities
 {
     public class Medal
     {
-        public int Id { get; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Material { get; set; }
     }

@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,6 +45,16 @@
     <Compile Include="PeopleDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RewardDao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{3f1697b7-63f2-460c-9a33-c9f09af1eb39}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EpamSummerPractice.DAL.Interface\EpamSummerPractice.DAL.Interface.csproj">
+      <Project>{92001501-61f0-4825-a84d-bc04cde881e8}</Project>
+      <Name>EpamSummerPractice.DAL.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

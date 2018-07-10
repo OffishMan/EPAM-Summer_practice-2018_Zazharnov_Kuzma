@@ -34,14 +34,17 @@ CREATE PROCEDURE RemovePerson @id int
 AS
 DELETE FROM Person WHERE ID = @id
 
+/*
 CREATE PROCEDURE RemoveMedal @id int
 AS
 IF (SELECT COUNT(Person_ID) FROM Rewards WHERE Medal_ID = @id) < 1
 BEGIN
 	DELETE FROM Medals WHERE ID = @id
-	RETURN 1
+	SELECT 1
 END
-ELSE RETURN 0
+ELSE SELECT 0
+*/
+
 
 CREATE PROCEDURE ShowAllMedals 
 AS
@@ -63,13 +66,27 @@ SELECT ID from Medals
 WHERE @title = Title
 GO
 
-
 CREATE PROCEDURE ReturnPersonID @name nvarchar(20), @surname nvarchar(30), @date_Of_Birth date
 AS
 SELECT ID from People 
 WHERE (@name = Name AND @surname = Surname AND @date_Of_Birth = Date_of_birth)
 GO
 
+CREATE PROCEDURE ReturnPersonByID @id int
+AS
+SELECT * FROM People WHERE ID = @id
+
+CREATE PROCEDURE ReturnMedalByID @id int
+AS
+SELECT * FROM Medals WHERE ID = @id
+
+CREATE PROCEDURE FindRewardByMedalID @id int
+AS
+SELECT * FROM Rewards WHERE Medal_ID = @id
+
+CREATE PROCEDURE FindRewardByPersonID @id int
+AS
+SELECT * FROM Rewards WHERE Person_ID = @id
 /*
 CREATE PROCEDURE ReturnRewardedByMedal @title nvarchar(50)
 AS
