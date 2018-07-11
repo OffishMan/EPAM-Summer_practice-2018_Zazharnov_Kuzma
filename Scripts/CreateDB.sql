@@ -21,7 +21,7 @@ CREATE TABLE [dbo].[People](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](20) NOT NULL,
 	[Surname] [nvarchar](30) NOT NULL,
-	[Date_of_birth] [date] NOT NULL,
+	[Date_of_birth] [datetime] NOT NULL,
 	[Age] [int] NOT NULL,
 	[City] [nvarchar](20) NOT NULL,
 	[Street] [nvarchar](20) NOT NULL,

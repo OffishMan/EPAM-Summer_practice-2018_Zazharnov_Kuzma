@@ -10,6 +10,8 @@ namespace EpamSummerPractice.DAL.Interface
     public interface IRewardDao
     {
         void Add(Reward reward);
+        IEnumerable<Reward> GetByPersonId(int id);
+        IEnumerable<Reward> GetByMedalId(int id);
         void Delete(Reward reward);
         IEnumerable<Reward> GetAll();
     }

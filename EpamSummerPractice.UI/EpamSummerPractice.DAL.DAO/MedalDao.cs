@@ -22,22 +22,47 @@ namespace EpamSummerPractice.DAL.DAO
 
         public void Add(Medal medal)
         {
-            using (var connetion = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand command = connetion.CreateCommand();
+                SqlCommand command = connection.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "CreateMedal";            //Имя хранимой процедуры
 
-                var parameter = new SqlParameter("@", SqlDbType.NVarChar) { Value = medal.Title};
-                command.Parameters.Add("@", SqlDbType.NVarChar);
+                var title = new SqlParameter("@Title", SqlDbType.NVarChar)
+                {
+                    Value = medal.Title
+                };
+                command.Parameters.Add(title);
 
+
+                var material = new SqlParameter("@Material", SqlDbType.NVarChar)
+                {
+                    Value = medal.Material
+                };
+                command.Parameters.Add(material);
+                connection.Open();
+                command.ExecuteNonQuery();
                 //return (int)(decimal)command.ExecuteScalar();
             }
         }
 
-        public int Delete(int id)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "RemoveMedal";            //Имя хранимой процедуры
+
+                var identificator = new SqlParameter("@ID", SqlDbType.Int)
+                {
+                    Value = id
+                };
+                command.Parameters.Add(identificator);
+                                              
+                connection.Open();
+                command.ExecuteNonQuery();                
+            }
         }
 
         public IEnumerable<Medal> GetAll()
@@ -46,8 +71,8 @@ namespace EpamSummerPractice.DAL.DAO
             {
                 var command = connetion.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
-
-                command.CommandText = @"SELECT * FROM Medals";
+                command.CommandText = "ShowAllMedals";
+                //command.CommandText = @"SELECT * FROM Medals"; //Возможный, но нежелательный вариант
                 connetion.Open();
                 var reader = command.ExecuteReader();
 
@@ -59,20 +84,72 @@ namespace EpamSummerPractice.DAL.DAO
                         Title = (string)reader["Title"],
                         Material = (string)reader["Material"]
                     };
-                }
-
-                //return (int)(decimal)command.ExecuteScalar();
+                }            
             }
+            //return null;
         }
 
         public Medal ShowById(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "ReturnMedalByID";            //Имя хранимой процедуры
+
+                var identificator = new SqlParameter("@ID", SqlDbType.Int)
+                {
+                    Value = id
+                };
+                command.Parameters.Add(identificator);
+
+                connection.Open();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    return new Medal()
+                    {
+                        Id = (int)reader["ID"],
+                        Title = (string)reader["Title"],
+                        Material = (string)reader["Material"]
+                    };
+                }
+            }
+            return null;
         }
 
         public void Update(int id, Medal medal)
         {
-            throw new NotImplementedException();
-        }
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "UpdateMedal";            //Имя хранимой процедуры
+
+                var identificator = new SqlParameter("@ID", SqlDbType.Int)
+                {
+                    Value = id
+                };
+                command.Parameters.Add(identificator);
+
+                var title = new SqlParameter("@Title", SqlDbType.NVarChar)
+                {
+                    Value = medal.Title
+                };
+                command.Parameters.Add(title);
+
+                var material = new SqlParameter("@Material", SqlDbType.NVarChar)
+                {
+                    Value = medal.Material
+                };
+                command.Parameters.Add(material);
+
+
+
+                connection.Open();
+                command.ExecuteNonQuery();               
+            }
+        }        
     }
 }

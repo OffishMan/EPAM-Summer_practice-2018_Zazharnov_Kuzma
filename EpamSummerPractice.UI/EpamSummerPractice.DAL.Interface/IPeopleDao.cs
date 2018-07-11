@@ -11,8 +11,8 @@ namespace EpamSummerPractice.DAL.Interface
     {
         void Add(Person person);
         void Update(int id, Person person);
-        int Delete(int id);
-        Medal ShowById(int id);
+        void Delete(int id);
+        Person ShowById(int id);
         IEnumerable<Person> GetAll();
     }
 }
