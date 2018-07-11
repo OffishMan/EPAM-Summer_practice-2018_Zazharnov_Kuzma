@@ -83,7 +83,7 @@ namespace EpamSummerPractice.DAL.DAO
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "RemovePerson";
 
-                var identificator = new SqlParameter("@ID", SqlDbType.NVarChar)
+                var identificator = new SqlParameter("@ID", SqlDbType.Int)
                 {
                     Value = id
                 };
@@ -129,6 +129,13 @@ namespace EpamSummerPractice.DAL.DAO
                 var command = connetion.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "ReturnPersonByID";
+
+                var identificator = new SqlParameter("@ID", SqlDbType.Int)
+                {
+                    Value = id
+                };
+                command.Parameters.Add(identificator);
+
                 connetion.Open();
                 var reader = command.ExecuteReader();
 
