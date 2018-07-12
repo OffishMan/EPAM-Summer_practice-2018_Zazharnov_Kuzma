@@ -119,6 +119,31 @@ namespace EpamSummerPractice.DAL.DAO
             return null;
         }
 
+        public bool UsedInReward(int id)
+        {
+            using (var connetion = new SqlConnection(_connectionString))
+            {
+                var command = connetion.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "ShowRewardsByMedalID";
+
+                var medalID = new SqlParameter("@Medal_ID", SqlDbType.Int)
+                {
+                    Value = id
+                };
+
+                command.Parameters.Add(medalID);
+                connetion.Open();
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void Update(int id, Medal medal)
         {
             using (var connection = new SqlConnection(_connectionString))

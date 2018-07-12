@@ -12,6 +12,7 @@ namespace EpamSummerPractice.BLL.Interface
         void Add(string title, string material);
         void Delete(int id);
         void Update(int id, string title, string material);
+        bool UsedInReward(int id);
         IEnumerable<Medal> GetAll();
 
     }

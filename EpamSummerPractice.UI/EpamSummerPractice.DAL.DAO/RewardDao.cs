@@ -101,7 +101,7 @@ namespace EpamSummerPractice.DAL.DAO
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "ShowRewardsByMedalID";
 
-                var medalID = new SqlParameter("@Medal_ID", SqlDbType.NVarChar)
+                var medalID = new SqlParameter("@Medal_ID", SqlDbType.Int)
                 {
                     Value = id
                 };
@@ -130,7 +130,7 @@ namespace EpamSummerPractice.DAL.DAO
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "ShowRewardsByMedalID";
 
-                var personID = new SqlParameter("@Person_ID", SqlDbType.NVarChar)
+                var personID = new SqlParameter("@Person_ID", SqlDbType.Int)
                 {
                     Value = id
                 };

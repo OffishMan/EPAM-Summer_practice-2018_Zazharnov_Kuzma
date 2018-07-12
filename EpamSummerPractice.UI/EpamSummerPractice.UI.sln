@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpamSummerPractice.DAL.DAO"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpamSummerPractice.BLL.Interface", "EpamSummerPractice.BLL.Interface\EpamSummerPractice.BLL.Interface.csproj", "{3A66A381-65CB-4DA6-8239-1044B82F096F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjectContainer", "NinjectContainer\NinjectContainer.csproj", "{A93A6D91-876C-4EA6-B62C-F9C83C1F8BED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpamSummerPractice.BLL.Logic", "EpamSummerPractice.BLL.Logic\EpamSummerPractice.BLL.Logic.csproj", "{74DDB2CA-371E-4688-BF7B-FDAFC2908C83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{3A66A381-65CB-4DA6-8239-1044B82F096F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A66A381-65CB-4DA6-8239-1044B82F096F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A66A381-65CB-4DA6-8239-1044B82F096F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A93A6D91-876C-4EA6-B62C-F9C83C1F8BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93A6D91-876C-4EA6-B62C-F9C83C1F8BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93A6D91-876C-4EA6-B62C-F9C83C1F8BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93A6D91-876C-4EA6-B62C-F9C83C1F8BED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74DDB2CA-371E-4688-BF7B-FDAFC2908C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74DDB2CA-371E-4688-BF7B-FDAFC2908C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74DDB2CA-371E-4688-BF7B-FDAFC2908C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74DDB2CA-371E-4688-BF7B-FDAFC2908C83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +69,8 @@ Global
 		{3F1697B7-63F2-460C-9A33-C9F09AF1EB39} = {8E1A6AB3-745D-4AD9-8BFC-16147E636EEA}
 		{8CAE96E9-F4BD-4487-A0E4-1D1F0A908A58} = {D5A31ECF-3CF2-4E7D-8546-AF0F761C04ED}
 		{3A66A381-65CB-4DA6-8239-1044B82F096F} = {9968D26B-1DD0-4796-80B2-E2252284761E}
+		{A93A6D91-876C-4EA6-B62C-F9C83C1F8BED} = {8E1A6AB3-745D-4AD9-8BFC-16147E636EEA}
+		{74DDB2CA-371E-4688-BF7B-FDAFC2908C83} = {9968D26B-1DD0-4796-80B2-E2252284761E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {29A9EB99-466C-431E-AB89-6D5652C3F201}

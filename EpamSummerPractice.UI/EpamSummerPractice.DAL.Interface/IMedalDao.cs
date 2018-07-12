@@ -12,6 +12,7 @@ namespace EpamSummerPractice.DAL.Interface
         void Add(Medal medal);
         void Update(int id, Medal medal);
         void Delete(int id);
+        bool UsedInReward(int id);
         Medal ShowById(int id);
         IEnumerable<Medal> GetAll();
     }
