@@ -13,6 +13,8 @@ namespace EpamSummerPractice.DAL.Interface
         Reward GetFirstByPersonId(int id);  //Возвращает первое вхождение
         Reward GetFirstByMedalId(int id);
         void Delete(Reward reward);
+        bool IsPersonCreated(int id);
+        bool IsMedalCreated(int id);
         IEnumerable<Reward> GetAll();
     }
 }

@@ -25,7 +25,7 @@ namespace EpamSummerPractice.DAL.DAO
             {
                 SqlCommand command = connection.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "CreateReward";            
+                command.CommandText = "CreateReward";
 
                 var personID = new SqlParameter("@Person_ID", SqlDbType.NVarChar)
                 {
@@ -41,7 +41,7 @@ namespace EpamSummerPractice.DAL.DAO
                 command.Parameters.Add(medalID);
                 connection.Open();
                 command.ExecuteNonQuery();
-                
+
             }
         }
 
@@ -70,6 +70,56 @@ namespace EpamSummerPractice.DAL.DAO
                 command.ExecuteNonQuery();
 
             }
+        }
+
+        public bool IsPersonCreated(int id)
+        {
+            using (var connetion = new SqlConnection(_connectionString))
+            {
+                var command = connetion.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "ReturnPersonByID";
+
+                var personID = new SqlParameter("@Person_ID", SqlDbType.Int)
+                {
+                    Value = id
+                };
+
+                command.Parameters.Add(personID);
+                connetion.Open();
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool IsMedalCreated(int id)
+        {
+            using (var connetion = new SqlConnection(_connectionString))
+            {
+                var command = connetion.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "ReturnMedalByID";
+
+                var medalID = new SqlParameter("@Medal_ID", SqlDbType.Int)
+                {
+                    Value = id
+                };
+
+                command.Parameters.Add(medalID);
+                connetion.Open();
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public IEnumerable<Reward> GetAll()

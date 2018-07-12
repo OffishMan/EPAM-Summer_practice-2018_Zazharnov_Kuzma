@@ -45,12 +45,12 @@ namespace EpamSummerPractice.BLL.Logic
 
         public void Delete(int id)
         {
-            if (!UsedInReward(id))
+            if (!UsedInReward(id) && _medalDao.ShowById(id) != null)
             {
                 _medalDao.Delete(id);
             }
             else
-                throw new Exception("Some person was rewarded by this medal. You can't delete this medal.");
+                throw new Exception("Some person was rewarded by this medal or medal wasn't created. You can't delete this medal");
         }
 
         public IEnumerable<Medal> GetAll()
@@ -60,22 +60,27 @@ namespace EpamSummerPractice.BLL.Logic
 
         public void Update(int id, string title, string material)
         {
-            if (!String.IsNullOrEmpty(title))
+            if (_medalDao.ShowById(id) != null)
             {
-                if (!String.IsNullOrEmpty(material))
+                if (!String.IsNullOrEmpty(title))
                 {
-                    var medal = new Medal
+                    if (!String.IsNullOrEmpty(material))
                     {
-                        Title = title,
-                        Material = material
-                    };
-                    _medalDao.Update(id, medal);
+                        var medal = new Medal
+                        {
+                            Title = title,
+                            Material = material
+                        };
+                        _medalDao.Update(id, medal);
+                    }
+                    else
+                        throw new ArgumentNullException("You can't add medal to null material");
                 }
                 else
-                    throw new ArgumentNullException("You can't add medal to null material");
+                    throw new ArgumentNullException("You can't update medal to null title");
             }
             else
-                throw new ArgumentNullException("You can't update medal to null title");
+                throw new Exception($"Medal with id = {id} not available");
         }
     }
 }

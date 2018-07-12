@@ -9,8 +9,8 @@ namespace EpamSummerPractice.BLL.Interface
 {
     public interface IRewardsLogic
     {
-        void Add(int PersonID, int MedalID);
-        void Delete(int PersonID, int MedalID);
+        void Add(int personID, int medalID);
+        void Delete(int personID, int medalID);
         IEnumerable<Reward> GetAll();
     }
 }
