@@ -20,7 +20,7 @@ namespace EpamSummerPractice.DAL.DAO
         {
             _connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
         }
-        public void Add(Person person)
+        public int Add(Person person)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -71,7 +71,8 @@ namespace EpamSummerPractice.DAL.DAO
                 command.Parameters.Add(houseNumber);
 
                 connection.Open();
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
+                return (int)(decimal)command.ExecuteScalar();
             } 
         }
 

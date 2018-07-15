@@ -20,7 +20,7 @@ namespace EpamSummerPractice.DAL.DAO
             _connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
         }
 
-        public void Add(Medal medal)
+        public int Add(Medal medal)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -41,8 +41,8 @@ namespace EpamSummerPractice.DAL.DAO
                 };
                 command.Parameters.Add(material);
                 connection.Open();
-                command.ExecuteNonQuery();
-                //return (int)(decimal)command.ExecuteScalar();
+                //command.ExecuteNonQuery();
+                return (int)(decimal)command.ExecuteScalar();
             }
         }
 
@@ -119,17 +119,17 @@ namespace EpamSummerPractice.DAL.DAO
             return null;
         }
 
-        public bool UsedInReward(int id)
+        public bool UsedInReward(int medalId)
         {
             using (var connetion = new SqlConnection(_connectionString))
             {
                 var command = connetion.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "ShowRewardsByMedalID";
+                command.CommandText = "FindRewardByMedalID";
 
-                var medalID = new SqlParameter("@Medal_ID", SqlDbType.Int)
+                var medalID = new SqlParameter("@id", SqlDbType.Int)
                 {
-                    Value = id
+                    Value = medalId
                 };
 
                 command.Parameters.Add(medalID);
@@ -144,7 +144,7 @@ namespace EpamSummerPractice.DAL.DAO
             return false;
         }
 
-        public void Update(int id, Medal medal)
+        public void Update(int medalId, Medal medal)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -152,9 +152,9 @@ namespace EpamSummerPractice.DAL.DAO
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "UpdateMedal";            //Имя хранимой процедуры
 
-                var identificator = new SqlParameter("@ID", SqlDbType.Int)
+                var identificator = new SqlParameter("@id", SqlDbType.Int)
                 {
-                    Value = id
+                    Value = medalId
                 };
                 command.Parameters.Add(identificator);
 

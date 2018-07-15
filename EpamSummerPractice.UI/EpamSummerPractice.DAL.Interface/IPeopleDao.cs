@@ -9,7 +9,7 @@ namespace EpamSummerPractice.DAL.Interface
 {
     public interface IPeopleDao
     {
-        void Add(Person person);
+        int Add(Person person);
         void Update(int id, Person person);
         void Delete(int id);
         Person ShowById(int id);

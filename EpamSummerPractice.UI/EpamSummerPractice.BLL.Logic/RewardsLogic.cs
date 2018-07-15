@@ -19,7 +19,7 @@ namespace EpamSummerPractice.BLL.Logic
         }
         public void Add(int personID, int medalID)
         {
-            if (_rewardDao.IsMedalCreated(personID) && _rewardDao.IsPersonCreated(medalID))
+            if (_rewardDao.IsMedalCreated(medalID) && _rewardDao.IsPersonCreated(personID))
             {
                 var reward = new Reward
                 {
@@ -47,7 +47,7 @@ namespace EpamSummerPractice.BLL.Logic
                 throw new Exception("Medal or person wasn't created");
         }
 
-        public IEnumerable<Reward> GetAll()
+        public IEnumerable<string> GetAll()
         {
             return _rewardDao.GetAll();
         }

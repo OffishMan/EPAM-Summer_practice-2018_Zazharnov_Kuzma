@@ -11,6 +11,6 @@ namespace EpamSummerPractice.BLL.Interface
     {
         void Add(int personID, int medalID);
         void Delete(int personID, int medalID);
-        IEnumerable<Reward> GetAll();
+        IEnumerable<string> GetAll();
     }
 }

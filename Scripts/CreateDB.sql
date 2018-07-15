@@ -1,4 +1,4 @@
-USE Practice
+USE EpamSummerPractice
 GO
 
 CREATE TABLE [dbo].[Medals](

@@ -27,14 +27,14 @@ namespace EpamSummerPractice.DAL.DAO
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "CreateReward";
 
-                var personID = new SqlParameter("@Person_ID", SqlDbType.NVarChar)
+                var personID = new SqlParameter("@IdP", SqlDbType.NVarChar)
                 {
                     Value = reward.PersonID
                 };
                 command.Parameters.Add(personID);
 
 
-                var medalID = new SqlParameter("@Medal_ID", SqlDbType.NVarChar)
+                var medalID = new SqlParameter("@IdM", SqlDbType.NVarChar)
                 {
                     Value = reward.MedalID
                 };
@@ -72,7 +72,7 @@ namespace EpamSummerPractice.DAL.DAO
             }
         }
 
-        public bool IsPersonCreated(int id)
+        public bool IsPersonCreated(int personId)
         {
             using (var connetion = new SqlConnection(_connectionString))
             {
@@ -80,9 +80,9 @@ namespace EpamSummerPractice.DAL.DAO
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "ReturnPersonByID";
 
-                var personID = new SqlParameter("@Person_ID", SqlDbType.Int)
+                var personID = new SqlParameter("@id", SqlDbType.Int)
                 {
-                    Value = id
+                    Value = personId
                 };
 
                 command.Parameters.Add(personID);
@@ -97,7 +97,7 @@ namespace EpamSummerPractice.DAL.DAO
             return false;
         }
 
-        public bool IsMedalCreated(int id)
+        public bool IsMedalCreated(int medalId)
         {
             using (var connetion = new SqlConnection(_connectionString))
             {
@@ -105,9 +105,9 @@ namespace EpamSummerPractice.DAL.DAO
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "ReturnMedalByID";
 
-                var medalID = new SqlParameter("@Medal_ID", SqlDbType.Int)
+                var medalID = new SqlParameter("@id", SqlDbType.Int)
                 {
-                    Value = id
+                    Value = medalId
                 };
 
                 command.Parameters.Add(medalID);
@@ -122,10 +122,11 @@ namespace EpamSummerPractice.DAL.DAO
             return false;
         }
 
-        public IEnumerable<Reward> GetAll()
+        public IEnumerable<string> GetAll()
         {
             using (var connetion = new SqlConnection(_connectionString))
             {
+                List<string> list = new List<string>();
                 var command = connetion.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "ShowAllRewards";                
@@ -134,71 +135,68 @@ namespace EpamSummerPractice.DAL.DAO
 
                 while (reader.Read())
                 {
-                    yield return new Reward()
-                    {
-                        PersonID = (int)reader["Person_ID"],  //Потом заменить на соответсвующие выводу поля, наверное на уровне логики
-                        MedalID = (int)reader["Medal_ID"]
-                    };
+                    list.Add(($"{(string)reader["Name"]} {(string)reader["Surname"]}: {(string)reader["Material"]} {(string)reader["Title"]}"));
                 }
+                return list;
             }
         }
 
-        public Reward GetFirstByMedalId(int id)
-        {
-            using (var connetion = new SqlConnection(_connectionString))
-            {
-                var command = connetion.CreateCommand();
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "ShowRewardsByMedalID";
+        //public Reward GetFirstByMedalId(int id)
+        //{
+        //    using (var connetion = new SqlConnection(_connectionString))
+        //    {
+        //        var command = connetion.CreateCommand();
+        //        command.CommandType = CommandType.StoredProcedure;
+        //        command.CommandText = "ShowRewardsByMedalID";
 
-                var medalID = new SqlParameter("@Medal_ID", SqlDbType.Int)
-                {
-                    Value = id
-                };
+        //        var medalID = new SqlParameter("@Medal_ID", SqlDbType.Int)
+        //        {
+        //            Value = id
+        //        };
 
-                command.Parameters.Add(medalID);
-                connetion.Open();
-                var reader = command.ExecuteReader();
+        //        command.Parameters.Add(medalID);
+        //        connetion.Open();
+        //        var reader = command.ExecuteReader();
 
-                if (reader.Read())
-                {
-                    return new Reward()
-                    {
-                        PersonID = (int)reader["Person_ID"],
-                        MedalID = (int)reader["Medal_ID"]
-                    };
-                }
-            }
-            return null;
-        }
+        //        if (reader.Read())
+        //        {
+        //            return new Reward()
+        //            {
+        //                PersonID = (int)reader["Person_ID"],
+        //                MedalID = (int)reader["Medal_ID"]
+        //            };
+        //        }
+        //    }
+        //    return null;
+        //}
 
-        public Reward GetFirstByPersonId(int id)
-        {
-            using (var connetion = new SqlConnection(_connectionString))
-            {
-                var command = connetion.CreateCommand();
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "ShowRewardsByMedalID";
+        //public Reward GetFirstByPersonId(int id)
+        //{
+        //    using (var connetion = new SqlConnection(_connectionString))
+        //    {
+        //        var command = connetion.CreateCommand();
+        //        command.CommandType = CommandType.StoredProcedure;
+        //        command.CommandText = "ShowRewardsByMedalID";
 
-                var personID = new SqlParameter("@Person_ID", SqlDbType.Int)
-                {
-                    Value = id
-                };
+        //        var personID = new SqlParameter("@Person_ID", SqlDbType.Int)
+        //        {
+        //            Value = id
+        //        };
 
-                command.Parameters.Add(personID);
-                connetion.Open();
-                var reader = command.ExecuteReader();
+        //        command.Parameters.Add(personID);
+        //        connetion.Open();
+        //        var reader = command.ExecuteReader();
 
-                if (reader.Read())
-                {
-                    return new Reward()
-                    {
-                        PersonID = (int)reader["Person_ID"],
-                        MedalID = (int)reader["Medal_ID"]
-                    };
-                }
-            }
-            return null;
-        }
+        //        if (reader.Read())
+        //        {
+        //            return new Reward()
+        //            {
+        //                PersonID = (int)reader["Person_ID"],
+        //                MedalID = (int)reader["Medal_ID"]
+        //            };
+        //        }
+        //    }
+        //    return null;
+        //}
     }
 }

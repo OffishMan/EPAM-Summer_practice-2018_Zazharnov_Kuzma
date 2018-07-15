@@ -10,11 +10,11 @@ namespace EpamSummerPractice.DAL.Interface
     public interface IRewardDao
     {
         void Add(Reward reward);
-        Reward GetFirstByPersonId(int id);  //Возвращает первое вхождение
-        Reward GetFirstByMedalId(int id);
+        //Reward GetFirstByPersonId(int id);  //Возвращает первое вхождение
+        //Reward GetFirstByMedalId(int id);
         void Delete(Reward reward);
         bool IsPersonCreated(int id);
         bool IsMedalCreated(int id);
-        IEnumerable<Reward> GetAll();
+        IEnumerable<string> GetAll();
     }
 }

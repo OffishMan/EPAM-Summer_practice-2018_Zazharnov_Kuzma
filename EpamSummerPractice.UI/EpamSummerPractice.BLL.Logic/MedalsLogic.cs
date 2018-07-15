@@ -17,7 +17,7 @@ namespace EpamSummerPractice.BLL.Logic
             _medalDao = medalDao;
         }
 
-        public void Add(string title, string material)
+        public int Add(string title, string material)
         {
             if (!String.IsNullOrEmpty(title))
             {
@@ -28,10 +28,10 @@ namespace EpamSummerPractice.BLL.Logic
                         Title = title,
                         Material = material
                     };
-                    _medalDao.Add(medal);
+                    return _medalDao.Add(medal);
                 }
                 else
-                    throw new ArgumentNullException("You can't add medal without material");
+                    throw new ArgumentNullException("Material can't be null");
             }
             else
                 throw new ArgumentNullException("You can't add medal without title");
@@ -81,6 +81,16 @@ namespace EpamSummerPractice.BLL.Logic
             }
             else
                 throw new Exception($"Medal with id = {id} not available");
+        }
+
+        public Medal ShowById(int id)
+        {
+            return _medalDao.ShowById(id);
+        }
+
+        public string ToString(Medal medal)
+        {
+            return $"{medal.Id}: {medal.Material} {medal.Title}";
         }
     }
 }

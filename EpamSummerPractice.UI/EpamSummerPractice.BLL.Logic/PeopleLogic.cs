@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EpamSummerPractice.BLL.Interface;
 using Entities;
 using EpamSummerPractice.DAL.Interface;
+using System.Text.RegularExpressions;
 
 namespace EpamSummerPractice.BLL.Logic
 {
@@ -18,7 +19,7 @@ namespace EpamSummerPractice.BLL.Logic
             _peopleDao = peopleDao;
         }
 
-        public void Add(string name, string surname, DateTime dateOfBirth, int age, string city, string street, string house_number)
+        public int Add(string name, string surname, DateTime dateOfBirth, int age, string city, string street, string house_number)
         {
             if (String.IsNullOrEmpty(name))
             {
@@ -27,7 +28,7 @@ namespace EpamSummerPractice.BLL.Logic
             else
                 if (String.IsNullOrEmpty(surname))
             {
-                throw new ArgumentNullException("Surname can't be null");
+                throw new ArgumentNullException("Surname", " can't be null");
             }
             else
                 if (DateTime.Now < dateOfBirth)
@@ -35,17 +36,17 @@ namespace EpamSummerPractice.BLL.Logic
                 throw new Exception("Person can't be added to the database before birth");
             }
             else 
-                if(Math.Abs(DateTime.Now.Year - dateOfBirth.Year) > age + 1)
+                if(Math.Abs(DateTime.Now.Year - dateOfBirth.Year) > age || Math.Abs(DateTime.Now.Year - dateOfBirth.Year) < age - 1) 
             {
                 throw new Exception("Date of birth and age mismatch");
             }
             else
                 if (String.IsNullOrEmpty(city))
             {
-                throw new ArgumentNullException("City name can't be null");
+                throw new ArgumentNullException("City", " name can't be null");
             }
             else
-                if (city.Contains(@"\d"))
+                if (Regex.IsMatch(city, @"\d"))
             {
                 throw new Exception("Wrong format of city name");
             }
@@ -60,7 +61,7 @@ namespace EpamSummerPractice.BLL.Logic
                 throw new ArgumentNullException("House number name can't be null");
             }
             else
-                if (!house_number.Contains(@"\d"))
+                if (!Regex.IsMatch(house_number, @"\d"))
             {
                 throw new Exception("House number must contain digits");
             }
@@ -76,7 +77,7 @@ namespace EpamSummerPractice.BLL.Logic
                     Street = street,
                     NumberOfHouse = house_number
                 };
-                _peopleDao.Add(person);
+                return _peopleDao.Add(person);
             }
 
         }
@@ -96,9 +97,14 @@ namespace EpamSummerPractice.BLL.Logic
             return _peopleDao.GetAll();
         }
 
+        public Person ShowById(int id)
+        {
+            return _peopleDao.ShowById(id);
+        }
+
         public void Update(int id, string name, string surname, DateTime dateOfBirth, int age, string city, string street, string house_number)
         {
-            if (_peopleDao.ShowById(id) != null)
+            if (_peopleDao.ShowById(id) == null)
             {
                 throw new Exception("Person wasn't created. You can't update it");
             }
@@ -128,7 +134,7 @@ namespace EpamSummerPractice.BLL.Logic
                 throw new ArgumentNullException("City name can't be null");
             }
             else
-                if (city.Contains(@"\d"))
+                if (Regex.IsMatch(city, @"\d"))
             {
                 throw new Exception("Wrong format of city name");
             }
@@ -143,7 +149,7 @@ namespace EpamSummerPractice.BLL.Logic
                 throw new ArgumentNullException("House number name can't be null");
             }
             else
-                if (!house_number.Contains(@"\d"))
+                if (!Regex.IsMatch(house_number, @"\d"))
             {
                 throw new Exception("House number must contain digits");
             }
@@ -162,5 +168,9 @@ namespace EpamSummerPractice.BLL.Logic
                 _peopleDao.Update(id, person);
             }
         }
+        public string ToString(Person person)
+        {
+            return $"{person.Id}: {person.Name} {person.Surname} {person.Age} {person.DateOfBirth} {person.City} {person.Street} {person.NumberOfHouse}";
+        }        
     }
 }

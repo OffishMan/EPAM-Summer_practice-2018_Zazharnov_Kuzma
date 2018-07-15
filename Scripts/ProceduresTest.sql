@@ -1,15 +1,17 @@
-USE SummerPractice
+USE EpamSummerPractice
 GO
 
 CREATE PROCEDURE CreatePerson  @name nvarchar(20), @surname nvarchar(30), @date_Of_Birth date, @age int, @city nvarchar(20), @street nvarchar(20), @house_number nvarchar(5)
 AS
 INSERT INTO People
 VALUES (@name, @surname, @date_Of_Birth, @age, @city, @street, @house_number)
+SELECT SCOPE_IDENTITY()
 
 CREATE PROCEDURE CreateMedal @title nvarchar(50), @material nvarchar(10)
 AS
 INSERT INTO Medals
 VALUES (@title, @material)
+SELECT SCOPE_IDENTITY()
 
 CREATE PROCEDURE UpdatePerson  @id int, @name nvarchar(20), @surname nvarchar(30), @date_Of_Birth date, @age int, @city nvarchar(20), @street nvarchar(20), @house_number nvarchar(5)
 AS
@@ -32,7 +34,7 @@ DELETE FROM Rewards WHERE Person_ID = @idP AND Medal_ID = @idM
 
 CREATE PROCEDURE RemovePerson @id int
 AS
-DELETE FROM Person WHERE ID = @id
+DELETE FROM People WHERE ID = @id
 
 /*
 CREATE PROCEDURE RemoveMedal @id int
@@ -45,6 +47,9 @@ END
 ELSE SELECT 0
 */
 
+CREATE PROCEDURE RemoveMedal @id int
+AS
+DELETE FROM Medals WHERE ID = @id
 
 CREATE PROCEDURE ShowAllMedals 
 AS
@@ -59,6 +64,10 @@ AS
 SELECT People.Name, People.Surname, Medals.Material, Medals.Title FROM People 
 JOIN Rewards ON People.ID = Rewards.Person_ID
 JOIN Medals ON Medals.ID = Rewards.Medal_ID
+
+CREATE PROCEDURE ShowAllIdInRewards
+AS
+SELECT * FROM Rewards
 
 CREATE PROCEDURE ReturnMedalID @title nvarchar(50)
 AS
