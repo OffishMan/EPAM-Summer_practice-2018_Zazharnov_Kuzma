@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="IntegrationTest.MedalLogicTest.TestAdding" /><Add Test="IntegrationTest.MedalLogicTest.TestUpdating" /><Add Test="IntegrationTest.MedalLogicTest.TestDeleting" /></Playlist>
