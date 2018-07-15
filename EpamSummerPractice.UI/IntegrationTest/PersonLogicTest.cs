@@ -11,14 +11,24 @@ namespace IntegrationTest
     [TestClass]
     public class PersonLogicTest
     {
-        [TestMethod]
-        public void TestAdding()
+        private static int id;
+        [ClassInitialize]
+        public static void Init(TestContext context)
         {
             NinjectCommon.Registration();
             var personLogic = NinjectCommon.Kernel.Get<IPeopleLogic>();
+            id = personLogic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23,
+                "Samara", "Chapaeva", "22/24");
+        }
+
+        [TestMethod]
+        public void TestAdding()
+        {
+            //NinjectCommon.Registration();
+            var personLogic = NinjectCommon.Kernel.Get<IPeopleLogic>();
             
 
-            int id = personLogic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23, 
+            id = personLogic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23, 
                 "Samara", "Chapaeva", "22/24");
             var person = new Person
             {
@@ -34,5 +44,37 @@ namespace IntegrationTest
             Assert.AreEqual(personLogic.ToString(personLogic.ShowById(id)), personLogic.ToString(person),
                 "Adding data about person incorrect");
         }
+
+        [TestMethod]
+        public void TestUpdating()
+        {
+            //NinjectCommon.Registration();
+            var personLogic = NinjectCommon.Kernel.Get<IPeopleLogic>();
+
+            Person person = personLogic.ShowById(id);
+            person.Name = "Igor";
+
+            personLogic.Update(id, "Igor", "Soloviev", new DateTime(1995, 12, 27), 23,
+                "Samara", "Chapaeva", "22/24");
+
+            Assert.AreEqual(personLogic.ToString(personLogic.ShowById(id)), personLogic.ToString(person),
+                "Adding data about person incorrect");
+        }
+
+        [ExpectedException(typeof(NullReferenceException), "This item must be null")]
+        [TestMethod]
+        public void TestDeleting()
+        {
+            //NinjectCommon.Registration();
+            var personLogic = NinjectCommon.Kernel.Get<IPeopleLogic>();
+
+            Person person = personLogic.ShowById(id);
+
+            personLogic.Delete(id);
+
+            Assert.AreEqual(personLogic.ToString(personLogic.ShowById(id)), personLogic.ToString(person),
+                "Adding data about person incorrect");
+        }
+
     }
 }
