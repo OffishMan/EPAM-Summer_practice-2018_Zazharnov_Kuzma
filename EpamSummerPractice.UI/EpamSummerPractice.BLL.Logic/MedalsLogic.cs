@@ -90,7 +90,7 @@ namespace EpamSummerPractice.BLL.Logic
 
         public string ToString(Medal medal)
         {
-            return $"{medal.Id}: {medal.Material} {medal.Title}";
+            return $"{medal.Material} {medal.Title}";
         }
     }
 }

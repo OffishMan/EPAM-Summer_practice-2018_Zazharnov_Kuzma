@@ -170,7 +170,7 @@ namespace EpamSummerPractice.BLL.Logic
         }
         public string ToString(Person person)
         {
-            return $"{person.Id}: {person.Name} {person.Surname} {person.Age} {person.DateOfBirth} {person.City} {person.Street} {person.NumberOfHouse}";
+            return $"{person.Name} {person.Surname} {person.Age} {person.DateOfBirth} {person.City} {person.Street} {person.NumberOfHouse}";
         }        
     }
 }
