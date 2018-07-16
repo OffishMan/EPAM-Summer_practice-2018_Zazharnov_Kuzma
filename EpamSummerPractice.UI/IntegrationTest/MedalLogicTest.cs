@@ -12,18 +12,20 @@ namespace IntegrationTest
     public class MedalLogicTest
     {
         private static int id;
+        private static IMedalsLogic logic;
+
         [ClassInitialize]
         public static void Init(TestContext context)
         {
             NinjectCommon.Registration();
+            logic = NinjectCommon.Kernel.Get<IMedalsLogic>();
         }
             
 
         [TestMethod]
         public void TestAdding()
         {
-            var medalLogic = NinjectCommon.Kernel.Get<IMedalsLogic>();
-            id = medalLogic.Add("For test", "Bronze");
+            id = logic.Add("For test", "Bronze");
 
             var medal = new Medal
             {
@@ -31,21 +33,19 @@ namespace IntegrationTest
                 Material = "Bronze"
             };
 
-            Assert.AreEqual(medalLogic.ToString(medalLogic.ShowById(id)), medalLogic.ToString(medal),
+            Assert.AreEqual(logic.ToString(logic.ShowById(id)), logic.ToString(medal),
                 "Adding data about person incorrect");
         }
 
         [TestMethod]
         public void TestUpdating()
-        {            
-            var medalLogic = NinjectCommon.Kernel.Get<IMedalsLogic>();
-
-            Medal medal = medalLogic.ShowById(id);
+        {
+            Medal medal = logic.ShowById(id);
             medal.Title = "For update";
 
-            medalLogic.Update(id, "For update", "Bronze");
+            logic.Update(id, "For update", "Bronze");
 
-            Assert.AreEqual(medalLogic.ToString(medalLogic.ShowById(id)), medalLogic.ToString(medal),
+            Assert.AreEqual(logic.ToString(logic.ShowById(id)), logic.ToString(medal),
                 "Adding data about person incorrect");
         }
 
@@ -53,14 +53,11 @@ namespace IntegrationTest
         [TestMethod]
         public void TestDeleting()
         {
-            //NinjectCommon.Registration();
-            var medalLogic = NinjectCommon.Kernel.Get<IMedalsLogic>();
+            Medal medal = logic.ShowById(id);
 
-            Medal medal = medalLogic.ShowById(id);
+            logic.Delete(id);
 
-            medalLogic.Delete(id);
-
-            Assert.AreEqual(medalLogic.ToString(medalLogic.ShowById(id)), medalLogic.ToString(medal),
+            Assert.AreEqual(logic.ToString(logic.ShowById(id)), logic.ToString(medal),
                 "Adding data about person incorrect");
         }
     }
