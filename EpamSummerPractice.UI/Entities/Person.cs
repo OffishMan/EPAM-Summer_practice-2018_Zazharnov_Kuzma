@@ -16,5 +16,11 @@ namespace Entities
         public string City { get; set; }
         public string Street { get; set; }
         public string NumberOfHouse { get; set; }
+        public List<int> AllMedalsId { get; set; }
+
+        public static string ToString(Person person)
+        {
+            return $"{person.Name} {person.Surname} {person.Age} {person.DateOfBirth} {person.City} {person.Street} {person.NumberOfHouse}";
+        }
     }
 }

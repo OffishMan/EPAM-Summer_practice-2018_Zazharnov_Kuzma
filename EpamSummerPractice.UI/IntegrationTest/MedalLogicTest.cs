@@ -11,7 +11,7 @@ namespace IntegrationTest
     [TestClass]
     public class MedalLogicTest
     {
-        private static int id;
+       
         private static IMedalsLogic logic;
 
         [ClassInitialize]
@@ -25,7 +25,7 @@ namespace IntegrationTest
         [TestMethod]
         public void TestAdding()
         {
-            id = logic.Add("For test", "Bronze");
+            int id = logic.Add("For test", "Bronze");
 
             var medal = new Medal
             {
@@ -33,31 +33,38 @@ namespace IntegrationTest
                 Material = "Bronze"
             };
 
-            Assert.AreEqual(logic.ToString(logic.ShowById(id)), logic.ToString(medal),
+            Assert.AreEqual(Medal.ToString(logic.ShowById(id)), Medal.ToString(medal),
                 "Adding data about person incorrect");
+
+            logic.Delete(id);
         }
 
         [TestMethod]
         public void TestUpdating()
         {
+            int id = logic.Add("For test", "Bronze");
+
             Medal medal = logic.ShowById(id);
             medal.Title = "For update";
 
             logic.Update(id, "For update", "Bronze");
 
-            Assert.AreEqual(logic.ToString(logic.ShowById(id)), logic.ToString(medal),
+            Assert.AreEqual(Medal.ToString(logic.ShowById(id)), Medal.ToString(medal),
                 "Adding data about person incorrect");
+            logic.Delete(id);
         }
 
         [ExpectedException(typeof(NullReferenceException), "This item must be null")]
         [TestMethod]
         public void TestDeleting()
         {
+            int id = logic.Add("For test", "Bronze");
+
             Medal medal = logic.ShowById(id);
 
             logic.Delete(id);
 
-            Assert.AreEqual(logic.ToString(logic.ShowById(id)), logic.ToString(medal),
+            Assert.AreEqual(Medal.ToString(logic.ShowById(id)), Medal.ToString(medal),
                 "Adding data about person incorrect");
         }
     }

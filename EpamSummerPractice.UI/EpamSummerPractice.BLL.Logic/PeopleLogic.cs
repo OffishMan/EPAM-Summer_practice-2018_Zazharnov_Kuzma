@@ -124,7 +124,7 @@ namespace EpamSummerPractice.BLL.Logic
                 throw new Exception("Person can't be added to the database before birth");
             }
             else
-                if (Math.Abs(DateTime.Now.Year - dateOfBirth.Year) > age + 1)
+                if (Math.Abs(DateTime.Now.Year - dateOfBirth.Year) > age || Math.Abs(DateTime.Now.Year - dateOfBirth.Year) < age - 1)
             {
                 throw new Exception("Date of birth and age mismatch");
             }
@@ -168,10 +168,6 @@ namespace EpamSummerPractice.BLL.Logic
                 };
                 _peopleDao.Update(person);
             }
-        }
-        public string ToString(Person person)
-        {
-            return $"{person.Name} {person.Surname} {person.Age} {person.DateOfBirth} {person.City} {person.Street} {person.NumberOfHouse}";
-        }        
+        }            
     }
 }

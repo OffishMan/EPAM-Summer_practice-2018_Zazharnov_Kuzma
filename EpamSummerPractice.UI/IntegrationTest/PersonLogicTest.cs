@@ -10,8 +10,7 @@ namespace IntegrationTest
 {
     [TestClass]
     public class PersonLogicTest
-    {
-        private static int id;
+    {        
         private static IPeopleLogic logic;
 
         [ClassInitialize]
@@ -22,10 +21,9 @@ namespace IntegrationTest
         }
 
         [TestMethod]
-        [Priority (0)]          //Не работает
         public void TestAdding()
         {  
-            id = logic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23,
+            int id = logic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23,
                 "Samara", "Chapaeva", "22/24");
 
             var person = new Person
@@ -39,34 +37,42 @@ namespace IntegrationTest
                 NumberOfHouse ="22/24"
             };
 
-            Assert.AreEqual(logic.ToString(logic.ShowById(id)), logic.ToString(person),
+            Assert.AreEqual(Person.ToString(logic.ShowById(id)), Person.ToString(person),
                 "Adding data about person incorrect");
+
+            logic.Delete(id);
         }
 
         [TestMethod]
-        [Priority(1)]
         public void TestUpdating()
         {
+            int id = logic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23,
+               "Samara", "Chapaeva", "22/24");
+
             Person person = logic.ShowById(id);
             person.Name = "Igor";
 
             logic.Update(id, "Igor", "Soloviev", new DateTime(1995, 12, 27), 23,
                 "Samara", "Chapaeva", "22/24");
 
-            Assert.AreEqual(logic.ToString(logic.ShowById(id)), logic.ToString(person),
+            Assert.AreEqual(Person.ToString(logic.ShowById(id)), Person.ToString(person),
                 "Adding data about person incorrect");
+
+            logic.Delete(id);
         }
 
         [ExpectedException(typeof(NullReferenceException), "This item must be null")]
         [TestMethod]
-        [Priority(2)]
         public void TestDeleting()
         {
+            int id = logic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23,
+              "Samara", "Chapaeva", "22/24");
+
             Person person = logic.ShowById(id);
 
             logic.Delete(id);
 
-            Assert.AreEqual(logic.ToString(logic.ShowById(id)), logic.ToString(person),
+            Assert.AreEqual(Person.ToString(logic.ShowById(id)), Person.ToString(person),
                 "Adding data about person incorrect");
         }
 

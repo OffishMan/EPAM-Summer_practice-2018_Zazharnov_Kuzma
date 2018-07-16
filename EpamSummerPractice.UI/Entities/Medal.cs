@@ -11,5 +11,10 @@ namespace Entities
         public int Id { get; set; }
         public string Title { get; set; }
         public string Material { get; set; }
+
+        public static string ToString(Medal medal)
+        {
+            return $"{medal.Material} {medal.Title}";
+        }
     }
 }

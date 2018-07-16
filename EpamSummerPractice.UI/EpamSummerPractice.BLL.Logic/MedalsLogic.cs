@@ -38,7 +38,7 @@ namespace EpamSummerPractice.BLL.Logic
             
         }
 
-        private bool UsedInReward(int id)
+        public bool UsedInReward(int id)
         {
             return _medalDao.UsedInReward(id);
         }
@@ -87,11 +87,6 @@ namespace EpamSummerPractice.BLL.Logic
         public Medal ShowById(int id)
         {
             return _medalDao.ShowById(id);
-        }
-
-        public string ToString(Medal medal)
-        {
-            return $"{medal.Material} {medal.Title}";
-        }
+        }       
     }
 }

@@ -16,6 +16,5 @@ namespace EpamSummerPractice.BLL.Interface
         void Delete(int id);
         Person ShowById(int id);
         IEnumerable<Person> GetAll();
-        string ToString(Person person);
     }
 }
