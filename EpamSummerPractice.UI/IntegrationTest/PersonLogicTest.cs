@@ -15,21 +15,16 @@ namespace IntegrationTest
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            NinjectCommon.Registration();
-            var personLogic = NinjectCommon.Kernel.Get<IPeopleLogic>();
-            id = personLogic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23,
-                "Samara", "Chapaeva", "22/24");
+            NinjectCommon.Registration();            
         }
 
         [TestMethod]
         public void TestAdding()
-        {
-            //NinjectCommon.Registration();
+        {            
             var personLogic = NinjectCommon.Kernel.Get<IPeopleLogic>();
-            
+            id = personLogic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23,
+                "Samara", "Chapaeva", "22/24");
 
-            //id = personLogic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23, 
-            //    "Samara", "Chapaeva", "22/24");
             var person = new Person
             {
                 Name = "Vyacheslav",

@@ -38,7 +38,7 @@ namespace EpamSummerPractice.BLL.Logic
             
         }
 
-        public bool UsedInReward(int id)
+        private bool UsedInReward(int id)
         {
             return _medalDao.UsedInReward(id);
         }
@@ -68,10 +68,11 @@ namespace EpamSummerPractice.BLL.Logic
                     {
                         var medal = new Medal
                         {
+                            Id = id,
                             Title = title,
                             Material = material
                         };
-                        _medalDao.Update(id, medal);
+                        _medalDao.Update(medal);
                     }
                     else
                         throw new ArgumentNullException("You can't add medal to null material");

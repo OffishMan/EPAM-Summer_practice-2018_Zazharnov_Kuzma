@@ -158,7 +158,7 @@ namespace EpamSummerPractice.DAL.DAO
             return null;
         }
 
-        public void Update(int id, Person person)
+        public void Update(Person person)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -168,7 +168,7 @@ namespace EpamSummerPractice.DAL.DAO
 
                 var identificator = new SqlParameter("@ID", SqlDbType.Int)
                 {
-                    Value = id
+                    Value = person.Id
                 };
                 command.Parameters.Add(identificator);
 

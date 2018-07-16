@@ -16,19 +16,14 @@ namespace IntegrationTest
         public static void Init(TestContext context)
         {
             NinjectCommon.Registration();
-            var medalLogic = NinjectCommon.Kernel.Get<IMedalsLogic>();
-            id = medalLogic.Add("For test", "Bronze");
         }
+            
 
         [TestMethod]
         public void TestAdding()
         {
-            //NinjectCommon.Registration();
             var medalLogic = NinjectCommon.Kernel.Get<IMedalsLogic>();
-
-
-            //id = medalLogic.Add("Vyacheslav", "Soloviev", new DateTime(1995, 12, 27), 23,
-            //    "Samara", "Chapaeva", "22/24");
+            id = medalLogic.Add("For test", "Bronze");
 
             var medal = new Medal
             {
@@ -42,8 +37,7 @@ namespace IntegrationTest
 
         [TestMethod]
         public void TestUpdating()
-        {
-            //NinjectCommon.Registration();
+        {            
             var medalLogic = NinjectCommon.Kernel.Get<IMedalsLogic>();
 
             Medal medal = medalLogic.ShowById(id);

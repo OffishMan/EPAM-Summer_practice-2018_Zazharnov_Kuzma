@@ -10,7 +10,7 @@ namespace EpamSummerPractice.DAL.Interface
     public interface IMedalDao
     {
         int Add(Medal medal);
-        void Update(int id, Medal medal);
+        void Update(Medal medal);
         void Delete(int id);
         bool UsedInReward(int id);
         Medal ShowById(int id);

@@ -144,7 +144,7 @@ namespace EpamSummerPractice.DAL.DAO
             return false;
         }
 
-        public void Update(int medalId, Medal medal)
+        public void Update(Medal medal)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -154,7 +154,7 @@ namespace EpamSummerPractice.DAL.DAO
 
                 var identificator = new SqlParameter("@id", SqlDbType.Int)
                 {
-                    Value = medalId
+                    Value = medal.Id
                 };
                 command.Parameters.Add(identificator);
 

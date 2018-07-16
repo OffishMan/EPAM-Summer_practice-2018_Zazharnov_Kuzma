@@ -28,7 +28,7 @@ namespace EpamSummerPractice.BLL.Logic
             else
                 if (String.IsNullOrEmpty(surname))
             {
-                throw new ArgumentNullException("Surname", " can't be null");
+                throw new ArgumentNullException("Surname can't be null");
             }
             else
                 if (DateTime.Now < dateOfBirth)
@@ -43,7 +43,7 @@ namespace EpamSummerPractice.BLL.Logic
             else
                 if (String.IsNullOrEmpty(city))
             {
-                throw new ArgumentNullException("City", " name can't be null");
+                throw new ArgumentNullException("City name can't be null");
             }
             else
                 if (Regex.IsMatch(city, @"\d"))
@@ -157,6 +157,7 @@ namespace EpamSummerPractice.BLL.Logic
             {
                 var person = new Person
                 {
+                    Id = id,
                     Name = name,
                     Surname = surname,
                     DateOfBirth = dateOfBirth,
@@ -165,7 +166,7 @@ namespace EpamSummerPractice.BLL.Logic
                     Street = street,
                     NumberOfHouse = house_number
                 };
-                _peopleDao.Update(id, person);
+                _peopleDao.Update(person);
             }
         }
         public string ToString(Person person)
