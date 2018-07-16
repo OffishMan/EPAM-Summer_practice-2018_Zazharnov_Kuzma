@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="IMedalsLogic.cs" />
     <Compile Include="IPeopleLogic.cs" />
-    <Compile Include="IRewardsLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

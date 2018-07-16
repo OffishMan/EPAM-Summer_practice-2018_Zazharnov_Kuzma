@@ -170,6 +170,35 @@ namespace EpamSummerPractice.BLL.Logic
                 _peopleDao.Update(person);
                 return true;
             }
-        }            
+        }
+
+        #region Reward
+        public bool AddReward(int personID, int medalID)
+        {
+            if (_peopleDao.IsMedalCreated(medalID) && _peopleDao.IsPersonCreated(personID))
+            {                
+                _peopleDao.AddReward(personID, medalID);
+                return true;
+            }
+            else
+                throw new Exception("Medal or person wasn't created");
+        }
+
+        public bool DeleteReward(int personID, int medalID)
+        {
+            if (_peopleDao.IsMedalCreated(medalID) && _peopleDao.IsPersonCreated(personID))
+            {                
+                _peopleDao.DeleteReward(personID, medalID);
+                return true;
+            }
+            else
+                throw new Exception("Medal or person wasn't created");
+        }
+
+        public IEnumerable<string> GetAllRewards()
+        {
+            return _peopleDao.GetAllRewards();
+        }
+        #endregion
     }
 }

@@ -64,7 +64,6 @@
     <Compile Include="MedalsLogicUnitTests.cs" />
     <Compile Include="PeopleLogicUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RewardsLogicUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

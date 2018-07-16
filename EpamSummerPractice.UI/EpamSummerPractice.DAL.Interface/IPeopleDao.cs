@@ -14,5 +14,11 @@ namespace EpamSummerPractice.DAL.Interface
         void Delete(int id);
         Person ShowById(int id);
         IEnumerable<Person> GetAll();
+
+        void AddReward(int idP, int idM);
+        void DeleteReward(int idP, int idM);
+        bool IsPersonCreated(int id);
+        bool IsMedalCreated(int id);
+        IEnumerable<string> GetAllRewards();
     }
 }

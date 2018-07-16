@@ -22,12 +22,12 @@ namespace NinjectContainer
         {
             _kernel.Bind<IMedalDao>().To<MedalDao>();
             _kernel.Bind<IPeopleDao>().To<PeopleDao>();
-            _kernel.Bind<IRewardDao>().To<RewardDao>();
+            //_kernel.Bind<IRewardDao>().To<RewardDao>();
 
             
             _kernel.Bind<IMedalsLogic>().To<MedalsLogic>();
             _kernel.Bind<IPeopleLogic>().To<PeopleLogic>();
-            _kernel.Bind<IRewardsLogic>().To<RewardsLogic>();
+            //_kernel.Bind<IRewardsLogic>().To<RewardsLogic>();
             
         }
     }

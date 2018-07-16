@@ -76,5 +76,21 @@ namespace IntegrationTest
                 "Adding data about person incorrect");
         }
 
+        #region Reward
+        [ExpectedException(typeof(Exception), "Person and medal with id = 1 is exist. Method Add")]
+        [TestMethod]
+        public void TestAddingReward()
+        {
+            logic.AddReward(1, 1);
+        }
+        
+        [ExpectedException(typeof(Exception), "Person and medal with id = 1 is exist. Method Delete")]
+        [TestMethod]
+        public void TestDeletingReward()
+        {
+            logic.DeleteReward(1, 1);
+        }
+        #endregion
+
     }
 }

@@ -13,7 +13,7 @@ namespace EpamSummerPractice.UI
     {
         private static IMedalsLogic medalLogic;
         private static IPeopleLogic personLogic;
-        private static IRewardsLogic rewardLogic;
+        //private static IRewardsLogic personLogic;
 
         static void Main(string[] args)
         {
@@ -21,7 +21,7 @@ namespace EpamSummerPractice.UI
 
             medalLogic = NinjectCommon.Kernel.Get<IMedalsLogic>();
             personLogic = NinjectCommon.Kernel.Get<IPeopleLogic>();
-            rewardLogic = NinjectCommon.Kernel.Get<IRewardsLogic>();
+            //personLogic = NinjectCommon.Kernel.Get<IRewardsLogic>();
 
             Start();
 
@@ -159,8 +159,8 @@ namespace EpamSummerPractice.UI
 
                         try
                         {
-                            rewardLogic.Add(personID, medalID);
-                            //rewardLogic.Add(1, 1);
+                            personLogic.AddReward(personID, medalID);
+                            //personLogic.Add(1, 1);
                         }
                         catch (ArgumentNullException nullEx)
                         {
@@ -341,7 +341,7 @@ namespace EpamSummerPractice.UI
 
                         try
                         {
-                            rewardLogic.Delete(personID, medalID);
+                            personLogic.DeleteReward(personID, medalID);
                         }
                         catch (Exception ex)
                         {
@@ -428,7 +428,7 @@ namespace EpamSummerPractice.UI
                     {
                         Console.WriteLine("\n");
 
-                        var list = rewardLogic.GetAll();
+                        var list = personLogic.GetAllRewards();
 
 
                         if (list.Count() > 0)

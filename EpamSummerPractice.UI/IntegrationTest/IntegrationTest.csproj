@@ -55,7 +55,6 @@
     <Compile Include="MedalLogicTest.cs" />
     <Compile Include="PersonLogicTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RewardLogicTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

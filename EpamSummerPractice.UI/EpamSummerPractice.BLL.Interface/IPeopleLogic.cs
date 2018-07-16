@@ -16,5 +16,9 @@ namespace EpamSummerPractice.BLL.Interface
         bool Delete(int id);
         Person ShowById(int id);
         IEnumerable<Person> GetAll();
+
+        bool AddReward(int personID, int medalID);
+        bool DeleteReward(int personID, int medalID);
+        IEnumerable<string> GetAllRewards();
     }
 }

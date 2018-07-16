@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="IMedalDao.cs" />
     <Compile Include="IPeopleDao.cs" />
-    <Compile Include="IRewardDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

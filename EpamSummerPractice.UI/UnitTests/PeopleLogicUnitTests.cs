@@ -505,5 +505,23 @@ namespace UnitTests
             var list = logic.GetAll().ToList();
             Assert.AreEqual(list.Count, 1);
         }
+
+
+
+        [TestMethod]
+        public void TryGetAllReward()
+        {
+            var mock = new Mock<IPeopleDao>();
+            mock.Setup(item => item.GetAllRewards()).Returns(new List<string>()
+            {
+                "Ivanov Petr: Gold For Moqing Update",
+                "Petrov Ivan: Silver For Moqing Delete",
+                "Bad fantasy: Bronze For nothing"
+            });
+
+            var logic = new PeopleLogic(mock.Object);
+            var list = logic.GetAllRewards().ToList();
+            Assert.AreEqual(list.Count, 3);
+        }
     }
 }

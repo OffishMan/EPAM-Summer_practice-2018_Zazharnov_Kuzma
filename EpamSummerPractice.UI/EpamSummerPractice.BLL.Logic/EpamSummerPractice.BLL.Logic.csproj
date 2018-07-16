@@ -43,7 +43,6 @@
     <Compile Include="MedalsLogic.cs" />
     <Compile Include="PeopleLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RewardsLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj">
