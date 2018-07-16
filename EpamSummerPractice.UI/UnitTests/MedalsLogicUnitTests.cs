@@ -64,18 +64,11 @@ namespace UnitTests
                 });
             var logic = new MedalsLogic(mock.Object);
 
-            mock.Setup(item => item.Update(It.IsAny<Medal>()));
+            mock.Setup(item => item.Update(It.IsAny<Medal>()));           
 
-            Medal medal = new Medal
-            {
-                Id = 7,
-                Title = "GG",
-                Material = "Silver"
-            };
+           
 
-            logic.Update(7, "GG", "Silver");
-
-            Assert.AreEqual(Medal.ToString(medal), Medal.ToString(logic.ShowById(7)), "Method Update doesn't work");
+            Assert.AreEqual(true, logic.Update(7, "GG", "Silver"), "Method Update doesn't work");
         }
 
         [ExpectedException(typeof(ArgumentNullException), "Title not null. Method Update")]
@@ -112,6 +105,45 @@ namespace UnitTests
             mock.Setup(item => item.Update(It.IsAny<Medal>()));
 
             logic.Update(0, "GG", null);
+        }
+
+        [TestMethod]
+        public void CorrectDataDeleting()
+        {
+            var mock = new Mock<IMedalDao>();
+            mock.Setup(item => item.ShowById(It.Is<int>(v => v == 7))).Returns(
+                new Medal
+                {
+                    Id = 7,
+                    Title = "GG",
+                    Material = "Gold"
+                });
+            var logic = new MedalsLogic(mock.Object);
+
+            mock.Setup(item => item.Delete(It.IsAny<int>()));
+
+
+
+            Assert.AreEqual(true, logic.Delete(7), "Method Delete doesn't work");
+        }
+
+        [ExpectedException(typeof(Exception), "Medal with this ID is exist. Method Delete")]
+        [TestMethod]
+        public void DeleteMedalWithException()
+        {
+            var mock = new Mock<IMedalDao>();
+            mock.Setup(item => item.ShowById(It.Is<int>(v => v == 7))).Returns(
+                new Medal
+                {
+                    Id = 7,
+                    Title = "GG",
+                    Material = "Gold"
+                });
+            var logic = new MedalsLogic(mock.Object);
+
+            mock.Setup(item => item.Delete(It.IsAny<int>()));
+
+            Assert.AreEqual(true, logic.Delete(5), "Method Delete doesn't work");
         }
 
         [TestMethod]

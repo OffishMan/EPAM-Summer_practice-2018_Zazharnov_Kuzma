@@ -43,14 +43,17 @@ namespace EpamSummerPractice.BLL.Logic
             return _medalDao.UsedInReward(id);
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             if (!UsedInReward(id) && _medalDao.ShowById(id) != null)
             {
                 _medalDao.Delete(id);
+                return true;
             }
             else
+            {
                 throw new Exception("Some person was rewarded by this medal or medal wasn't created. You can't delete this medal");
+            }
         }
 
         public IEnumerable<Medal> GetAll()
@@ -58,7 +61,7 @@ namespace EpamSummerPractice.BLL.Logic
             return _medalDao.GetAll().ToList<Medal>();
         }
 
-        public void Update(int id, string title, string material)
+        public bool Update(int id, string title, string material)
         {
             if (_medalDao.ShowById(id) != null)
             {
@@ -73,6 +76,7 @@ namespace EpamSummerPractice.BLL.Logic
                             Material = material
                         };
                         _medalDao.Update(medal);
+                        return true;
                     }
                     else
                         throw new ArgumentNullException("You can't add medal to null material");

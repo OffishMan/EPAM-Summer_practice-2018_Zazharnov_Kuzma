@@ -135,9 +135,10 @@ namespace UnitTests
         public void CorrectDataUpdating()
         {
             var mock = new Mock<IPeopleDao>();
-            mock.Setup(item => item.ShowById(It.IsAny<int>())).Returns(
+            mock.Setup(item => item.ShowById(It.Is<int>(v => v == 5))).Returns(
                 new Person
                 {
+                    Id = 5,
                     Name = "Victor",
                     Surname = "Petrov",
                     DateOfBirth = new DateTime(1993, 12, 27),
@@ -148,23 +149,10 @@ namespace UnitTests
                 });
             var logic = new PeopleLogic(mock.Object);
 
-            mock.Setup(item => item.Update(It.IsAny<Person>()));
+            mock.Setup(item => item.Update(It.IsAny<Person>()));            
 
-            Person person = new Person
-            {
-                Name = "Victor",
-                Surname = "Petrov",
-                DateOfBirth = new DateTime(1993, 12, 27),
-                Age = 25,
-                City = "Omsk",
-                Street = "50 years of October",
-                NumberOfHouse = "51b"
-            };
-
-            logic.Update(0, "Eldar", "Petrov", new DateTime(1993, 12, 27), 25,
-                "Omsk", "50 years of October", "51b");
-
-            Assert.AreEqual(Person.ToString(logic.ShowById(0)), Person.ToString(person), "Method Update doesn't work");
+            Assert.AreEqual(true, logic.Update(5, "Eldar", "Petrov", new DateTime(1993, 12, 27), 25,
+                                    "Omsk", "50 years of October", "51b"), "Method Update doesn't work");
         }
 
         [ExpectedException(typeof(ArgumentNullException), "Name not null. Method Update")]
@@ -419,9 +407,47 @@ namespace UnitTests
             Assert.AreEqual(Person.ToString(logic.ShowById(7)), Person.ToString(person), "Method ShowByID doesn't work");
         }
 
+        [TestMethod]
+        public void DeletePersonWithoutException()
+        {
+            var mock = new Mock<IPeopleDao>();
+            mock.Setup(item => item.ShowById(It.Is<int>(v => v == 7))).Returns(
+                new Person
+                {
+                    Id = 7,
+                    Name = "Victor",
+                    Surname = "Petrov",
+                    DateOfBirth = new DateTime(1993, 12, 27),
+                    Age = 25,
+                    City = "Omsk",
+                    Street = "50 years of October",
+                    NumberOfHouse = "51b"
+                });
+            mock.Setup(item => item.ShowById(It.Is<int>(v => v == 9))).Returns(
+                new Person
+                {
+                    Id = 9,
+                    Name = "Alexander",
+                    Surname = "Indropov",
+                    DateOfBirth = new DateTime(1993, 11, 23),
+                    Age = 25,
+                    City = "Omsk",
+                    Street = "50 years of October",
+                    NumberOfHouse = "22/24"
+                });
+
+            mock.Setup(item => item.Delete(It.IsAny<int>()));
+
+            var logic = new PeopleLogic(mock.Object);
+
+
+
+            Assert.AreEqual(true, logic.Delete(9), "Expected exception by delete");
+        }
+
         [ExpectedException(typeof(Exception), "Person with this ID is exist. Method Delete")]
         [TestMethod]
-        public void DeletePerson()
+        public void DeletePersonWithException()
         {
             var mock = new Mock<IPeopleDao>();
             mock.Setup(item => item.ShowById(It.Is<int>(v => v == 7))).Returns(
@@ -453,21 +479,9 @@ namespace UnitTests
 
             var logic = new PeopleLogic(mock.Object);
 
-            logic.Delete(5);
+            
 
-            //Person person = new Person
-            //{
-            //    Id = 7,
-            //    Name = "Victor",
-            //    Surname = "Petrov",
-            //    DateOfBirth = new DateTime(1993, 12, 27),
-            //    Age = 25,
-            //    City = "Omsk",
-            //    Street = "50 years of October",
-            //    NumberOfHouse = "51b"
-            //};
-
-            //Assert.AreEqual(Person.ToString(logic.ShowById(7)), Person.ToString(person), "Method ShowByID doesn't work");
+            Assert.AreEqual(true, logic.Delete(5), "Expected exception by delete" );
         }
 
         [TestMethod]

@@ -82,11 +82,12 @@ namespace EpamSummerPractice.BLL.Logic
 
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             if (_peopleDao.ShowById(id) != null)
             {
                 _peopleDao.Delete(id);
+                return true;
             }
             else
                 throw new Exception("Person wasn't created. You can't remove it");
@@ -102,7 +103,7 @@ namespace EpamSummerPractice.BLL.Logic
             return _peopleDao.ShowById(id);
         }
 
-        public void Update(int id, string name, string surname, DateTime dateOfBirth, int age, string city, string street, string house_number)
+        public bool Update(int id, string name, string surname, DateTime dateOfBirth, int age, string city, string street, string house_number)
         {
             if (_peopleDao.ShowById(id) == null)
             {
@@ -167,6 +168,7 @@ namespace EpamSummerPractice.BLL.Logic
                     NumberOfHouse = house_number
                 };
                 _peopleDao.Update(person);
+                return true;
             }
         }            
     }

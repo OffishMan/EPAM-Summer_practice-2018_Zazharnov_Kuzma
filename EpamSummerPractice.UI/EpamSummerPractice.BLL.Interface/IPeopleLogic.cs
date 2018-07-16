@@ -11,9 +11,9 @@ namespace EpamSummerPractice.BLL.Interface
     {
         int Add(string name, string surname, DateTime dateOfBirth, 
             int age, string city, string street, string house_number);
-        void Update(int id, string name, string surname, DateTime dateOfBirth,
+        bool Update(int id, string name, string surname, DateTime dateOfBirth,
             int age, string city, string street, string house_number);
-        void Delete(int id);
+        bool Delete(int id);
         Person ShowById(int id);
         IEnumerable<Person> GetAll();
     }
